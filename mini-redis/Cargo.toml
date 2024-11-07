@@ -1,0 +1,31 @@
+[package]
+name = "mini-redis"
+version = "0.1.0"
+edition = "2021"
+license = "UNLICENSED"
+readme = "README.md"
+description = """"
+Example from `tokio-rs` crate - a simple redis client/server app - of a correct async/await implementation 
+with simple and effective error handling 
+"""
+
+[[bin]]
+name = "mini-redis-cli"
+path = "src/bin/cli.rs"
+
+[[bin]]
+name = "mini-redis-server"
+path = "src/bin/server.rs"
+
+[dependencies]
+async-stream = "0.3.6"
+atoi = "2.0.0"
+bytes = "1.8.0"
+clap = { version = "4.5.20", features = ["derive"] }
+tokio = { version = "1.41.0", features = ["full"] }
+tokio-stream = "0.1.16"
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+
+[dev-dependencies]
+tokio = { version = "1.41.0", features = ["test-util"] }
