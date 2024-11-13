@@ -30,3 +30,19 @@ impl Shutdown {
         self.is_shutdown = true;
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn receives_shutdown_notification() {
+        let (tx, rx) = broadcast::channel(1);
+        let mut shutdown = Shutdown::new(rx);
+        assert_eq!(shutdown.is_shutdown(), false);
+
+        tx.send(()).unwrap();
+        shutdown.recv().await;
+        assert_eq!(shutdown.is_shutdown(), true);
+    }
+}
