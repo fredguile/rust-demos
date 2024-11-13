@@ -42,14 +42,14 @@ impl Client {
     }
 
     /// Ping to the server.
-    pub async fn ping(&mut self, msg: Option<Bytes>) -> crate::FnResult<Option<Bytes>> {
+    pub async fn ping(&mut self, msg: Option<Bytes>) -> crate::FnResult<Bytes> {
         let frame = Ping::new(msg).into_frame();
         debug!(request = ?frame);
         self.connection.write_frame(&frame).await?;
 
         match self.read_response().await? {
-            Frame::Simple(value) => Ok(Some(value.into())),
-            Frame::Bulk(value) => Ok(Some(value)),
+            Frame::Simple(value) => Ok(value.into()),
+            Frame::Bulk(value) => Ok(value),
             frame => Err(frame.to_error()),
         }
     }

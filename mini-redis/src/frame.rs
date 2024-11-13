@@ -55,20 +55,6 @@ impl Frame {
         }
     }
 
-    /// Push a string frame into the array. `self` must be an Array frame.
-    /// 
-    /// # Panics
-    /// 
-    /// panics if `self` is not an array
-    pub(crate) fn push_simple(&mut self, value: String) {
-        match self {
-            Frame::Array(vec) => {
-                vec.push(Frame::Simple(value));
-            }
-            _ => panic!("not an array frame"),
-        }
-    }
-
     /// Check if an entire message can be decoded from `src`.
     pub fn check(src: &mut Cursor<&[u8]>) -> Result<(), Error> {
         match parse_utils::get_u8(src)? {

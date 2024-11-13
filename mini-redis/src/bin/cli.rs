@@ -63,12 +63,10 @@ async fn main() -> FnResult<()> {
         Command::Ping { msg } => {
             let value = client.ping(msg).await?;
 
-            if let Some(value) = value {
-                if let Ok(value_str) = str::from_utf8(&value) {
-                    println!("\"{}\"", value_str);
-                } else {
-                    println!("{:?}", value);
-                }
+            if let Ok(value_str) = str::from_utf8(&value) {
+                println!("\"{}\"", value_str);
+            } else {
+                println!("{:?}", value);
             }
         }
         Command::Get { key } => {

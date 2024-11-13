@@ -141,7 +141,7 @@ mod tests {
             empty_frame: Frame::array(),
             string_frame: (|| {
                 let mut frame = Frame::array();
-                frame.push_simple("test".to_string());
+                frame.push_bulk(Bytes::from("test"));
                 frame
             })(),
             bytes_frame: (|| {
@@ -154,10 +154,10 @@ mod tests {
                 frame.push_int(1);
                 frame
             })(),
-            long_frame:  (|| {
+            long_frame: (|| {
                 let mut frame = Frame::array();
                 frame.push_int(1);
-                frame.push_simple("x".to_string());
+                frame.push_bulk(Bytes::from("x"));
                 frame
             })(),
         }
